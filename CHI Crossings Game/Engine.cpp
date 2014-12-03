@@ -1,25 +1,25 @@
-#include "Engine.h"
+#include "Engine.hpp"
 
 sf::Time frameRate;
 sf::Time curTime;
-sf::Clock clock;
+sf::Clock gameClock;
 sf::Time nextFrame;
 
 void setupTimeLoop(){
 	frameRate = sf::seconds(1.f/60.f);
 	curTime = sf::seconds(0.f);
-	clock = sf::Clock();
+	gameClock = sf::Clock();
 	nextFrame = sf::seconds(1.f/60.f);
 }
 
 void waitForFrameSync(){
-	while(clock.getElapsedTime() < nextFrame);
+	while(gameClock.getElapsedTime() < nextFrame);
 	nextFrame += frameRate;
-	curTime = clock.getElapsedTime();
+	curTime = gameClock.getElapsedTime();
 }
 
 float secondsSinceLastLoop(){
-	return (clock.getElapsedTime()-curTime).asSeconds();
+	return (gameClock.getElapsedTime()-curTime).asSeconds();
 }
 
 sf::RenderWindow* setupWindow(){

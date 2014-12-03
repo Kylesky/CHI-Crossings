@@ -77,8 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.hpp" />
-    <ClInclude Include="Module.hpp" />
-    <ClInclude Include="ModuleManager.hpp" />
+    <ClInclude Include="ModuleHandler.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -26,10 +26,7 @@
     <ClInclude Include="Engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Module.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleManager.hpp">
+    <ClInclude Include="ModuleHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
