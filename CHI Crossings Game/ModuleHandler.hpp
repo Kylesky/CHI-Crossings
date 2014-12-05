@@ -3,14 +3,20 @@
 #include <vector>
 
 #include "Entity.hpp"
+#include "Level.hpp"
 
 enum ModuleType{NONE, CONTINUOUS_SIDE_SCROLLER};
 
 class ModuleHandler{
 private:
 	float playerProgress;
-	std::vector<Entity*> entities;
 	ModuleType type;
+	Level *level;
+	CharacterEntity *player;
+	std::vector<CharacterEntity*> characters;
+	std::vector<BulletEntity*> bullets;
+	std::vector<ObjectEntity*> objects;
+
 public:
 	ModuleHandler();
 	~ModuleHandler();

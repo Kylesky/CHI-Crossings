@@ -14,7 +14,7 @@ void setupTimeLoop(){
 
 void waitForFrameSync(){
 	while(gameClock.getElapsedTime() < nextFrame);
-	nextFrame += frameRate;
+	while(nextFrame <= gameClock.getElapsedTime()) nextFrame += frameRate;
 	curTime = gameClock.getElapsedTime();
 }
 

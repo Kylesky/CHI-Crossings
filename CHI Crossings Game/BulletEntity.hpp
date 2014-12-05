@@ -2,7 +2,7 @@
 
 #include "Entity.hpp"
 
-class BulletEntity : Entity{
+class BulletEntity : public Entity{
 private:
 	float xpos, ypos;
 	float xvel, yvel;
@@ -12,4 +12,5 @@ private:
 public:
 	BulletEntity();
 	~BulletEntity();
+	void update(float time, Level *level);
 };
