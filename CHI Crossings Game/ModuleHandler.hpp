@@ -2,4 +2,6 @@
 
 class ModuleHandler{
 public:
+	ModuleHandler();
+	~ModuleHandler();
 };

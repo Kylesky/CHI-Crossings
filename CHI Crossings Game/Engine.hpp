@@ -6,6 +6,9 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
+#include "ModuleHandler.hpp"
+#include "AssetManager.hpp"
+
 void setupTimeLoop();
 void waitForFrameSync();
 float secondsSinceLastLoop();

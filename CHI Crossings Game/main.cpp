@@ -8,10 +8,10 @@ int main()
 
 	//Initialize managers, window, entities, etc
 
-	//GraphicsManager graphicsManager();
-	//AssetManager assetManager();
-	//AudioManager audioManager();
-	//ModuleManager moduleManager();
+	AssetManager assetManager = AssetManager();
+	//GraphicsManager graphicsManager = GraphicsManager();
+	//AudioManager audioManager = AudioManager();
+	ModuleHandler moduleHandler = ModuleHandler();
 
 	setupTimeLoop();
 	sf::RenderWindow* window = setupWindow();
@@ -34,6 +34,9 @@ int main()
 
 		//Draw everything
     }
+
+	//shutdown everything
+	assetManager.shutdown();
 
     return 0;
 }

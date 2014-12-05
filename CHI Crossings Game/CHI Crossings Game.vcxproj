@@ -72,10 +72,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModuleHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetManager.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="ModuleHandler.hpp" />
   </ItemGroup>
