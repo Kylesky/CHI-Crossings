@@ -57,3 +57,17 @@ void ModuleHandler::shutdown(){
 	delete level;
 	delete player;
 }
+
+void ModuleHandler::drawScreen(GraphicsManager *gm){
+	gm->drawLevel(level);
+	gm->drawEntity(player);
+	for(CharacterEntity *e: characters){
+		gm->drawEntity(e);
+	}
+	for(BulletEntity *e: bullets){
+		gm->drawEntity(e);
+	}
+	for(ObjectEntity *e: objects){
+		gm->drawEntity(e);
+	}
+}

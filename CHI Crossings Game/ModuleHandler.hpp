@@ -4,6 +4,7 @@
 
 #include "Entity.hpp"
 #include "Level.hpp"
+#include "GraphicsManager.hpp"
 
 enum ModuleType{NONE, CONTINUOUS_SIDE_SCROLLER};
 
@@ -29,4 +30,6 @@ public:
 	void initialize(ModuleType mt = NONE);
 	void update(float time);
 	void shutdown();
+	
+	void drawScreen(GraphicsManager *gm);
 };

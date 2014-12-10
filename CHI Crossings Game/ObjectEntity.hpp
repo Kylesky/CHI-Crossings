@@ -4,7 +4,6 @@
 
 class ObjectEntity : public Entity{
 private:
-	float xpos, ypos;
 	bool colliding;
 public:
 	ObjectEntity();

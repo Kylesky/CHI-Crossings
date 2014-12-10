@@ -8,13 +8,14 @@ int main()
 
 	//Initialize managers, window, entities, etc
 
+	sf::RenderWindow* window = setupWindow();
+
 	AssetManager assetManager = AssetManager();
-	//GraphicsManager graphicsManager = GraphicsManager();
+	GraphicsManager graphicsManager = GraphicsManager(window);
 	//AudioManager audioManager = AudioManager();
 	ModuleHandler moduleHandler = ModuleHandler();
 
 	setupTimeLoop();
-	sf::RenderWindow* window = setupWindow();
 
     while (window->isOpen()) //Main game loop
     {
@@ -40,10 +41,16 @@ int main()
 		waitForFrameSync();
 
 		//Draw everything
+		switch(state){
+		case IN_GAME:
+			moduleHandler.drawScreen(&graphicsManager);
+			break;
+		}
     }
 
 	//shutdown everything
 	assetManager.shutdown();
+	moduleHandler.shutdown();
 
     return 0;
 }

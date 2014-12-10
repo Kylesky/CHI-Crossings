@@ -78,6 +78,7 @@
     <ClCompile Include="CharacterEntity.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModuleHandler.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="CharacterEntity.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="GraphicsManager.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="ModuleHandler.hpp" />
     <ClInclude Include="ObjectEntity.hpp" />

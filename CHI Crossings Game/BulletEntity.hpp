@@ -4,7 +4,6 @@
 
 class BulletEntity : public Entity{
 private:
-	float xpos, ypos;
 	float xvel, yvel;
 	float xacc, yacc;
 	float damage;

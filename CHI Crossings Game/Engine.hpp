@@ -8,6 +8,7 @@
 
 #include "ModuleHandler.hpp"
 #include "AssetManager.hpp"
+#include "GraphicsManager.hpp"
 
 void setupTimeLoop();
 void waitForFrameSync();

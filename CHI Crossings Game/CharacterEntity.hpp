@@ -8,7 +8,6 @@ enum CharacterEntityState{IDLE_LEFT, IDLE_RIGHT, WALK_LEFT, WALK_RIGHT, JUMP_LEF
 class CharacterEntity : public Entity{
 private:
 	float health;
-	float xpos, ypos;
 	float xvel, yvel;
 	float walkSpeed, jumpSpeed;
 	CharacterBehavior *behavior;

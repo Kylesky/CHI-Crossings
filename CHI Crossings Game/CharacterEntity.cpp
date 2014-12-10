@@ -38,11 +38,11 @@ float CharacterEntity::getStateTime(){
 }
 
 void CharacterEntity::setX(float x){
-	xpos = x;
+	setPosition(x, getPosition().y);
 }
 
 void CharacterEntity::setY(float y){
-	ypos = y;
+	setPosition(getPosition().x, y);
 }
 
 void CharacterEntity::setXVel(float xv){
@@ -62,11 +62,11 @@ void CharacterEntity::setJumpSpeed(float s){
 }
 
 float CharacterEntity::getX(){
-	return xpos;
+	return getPosition().x;
 }
 
 float CharacterEntity::getY(){
-	return ypos;
+	return getPosition().y;
 }
 
 float CharacterEntity::getXVel(){
