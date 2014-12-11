@@ -30,3 +30,11 @@ void Level::shutdown(){
 	}
 	delete map;
 }
+
+void Level::setTexture(sf::Texture* tex){
+	texture = tex;
+}
+
+sf::Texture* Level::getTexture(){
+	return texture;
+}

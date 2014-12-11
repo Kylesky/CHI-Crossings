@@ -1,9 +1,12 @@
 #pragma once
 
+#include <SFML\Graphics.hpp>
+
 class Level{
 private:
 	int rows, columns;
 	int **map;
+	sf::Texture *texture;
 public:
 	Level();
 	Level(int r, int c, int **arr);
@@ -14,4 +17,7 @@ public:
 	int* operator[](int x);
 
 	void shutdown();
+
+	void setTexture(sf::Texture* tex);
+	sf::Texture* getTexture();
 };

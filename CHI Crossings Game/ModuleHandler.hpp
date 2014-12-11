@@ -5,6 +5,7 @@
 #include "Entity.hpp"
 #include "Level.hpp"
 #include "GraphicsManager.hpp"
+#include "AssetManager.hpp"
 
 enum ModuleType{NONE, CONTINUOUS_SIDE_SCROLLER};
 
@@ -17,6 +18,7 @@ private:
 	std::vector<CharacterEntity*> characters;
 	std::vector<BulletEntity*> bullets;
 	std::vector<ObjectEntity*> objects;
+	AssetManager* assetManager;
 
 public:
 	ModuleHandler();
@@ -27,7 +29,7 @@ public:
 
 	float getPlayerProgress();
 
-	void initialize(ModuleType mt = NONE);
+	void initialize(AssetManager* am, ModuleType mt = NONE);
 	void update(float time);
 	void shutdown();
 	

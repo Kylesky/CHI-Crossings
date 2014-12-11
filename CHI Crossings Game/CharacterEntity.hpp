@@ -28,8 +28,10 @@ public:
 	bool isOnGround();
 	void setX(float x);
 	void setY(float y);
+	void setXY(float x, float y);
 	void setXVel(float xv);
 	void setYVel(float yv);
+	void setXYVel(float xv, float yv);
 	void setWalkSpeed(float s);
 	void setJumpSpeed(float s);
 	float getX();

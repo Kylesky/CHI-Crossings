@@ -45,11 +45,20 @@ void CharacterEntity::setY(float y){
 	setPosition(getPosition().x, y);
 }
 
+void CharacterEntity::setXY(float x, float y){
+	setPosition(x, y);
+}
+
 void CharacterEntity::setXVel(float xv){
 	xvel = xv;
 }
 
 void CharacterEntity::setYVel(float yv){
+	yvel = yv;
+}
+
+void CharacterEntity::setXYVel(float xv, float yv){
+	xvel = xv;
 	yvel = yv;
 }
 

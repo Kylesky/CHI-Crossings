@@ -30,7 +30,7 @@ int main()
 		//Process all user inputs and game logic
 		switch(state){
 		case LOADING_TO_GAME:
-			moduleHandler.initialize(CONTINUOUS_SIDE_SCROLLER);
+			moduleHandler.initialize(&assetManager, CONTINUOUS_SIDE_SCROLLER);
 			state = IN_GAME;
 			break;
 		case IN_GAME:

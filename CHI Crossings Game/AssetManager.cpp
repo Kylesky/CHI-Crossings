@@ -7,7 +7,16 @@ AssetManager::~AssetManager(){
 	shutdown();
 }
 
+void AssetManager::initialize(){
+	std::ifstream fin("resources.dat");
+	std::string name, path;
+	while(std::getline(fin, name, '|') && std::getline(fin, path)){
+		paths[name] = path;
+	}
+}
+
 bool AssetManager::loadTexture(std::string name, std::string path){
+	if(textures.count(name) != 0) return true;
 	sf::Texture* tex = new sf::Texture();
 	if(!tex->loadFromFile(path)){
 		return false;
@@ -17,6 +26,7 @@ bool AssetManager::loadTexture(std::string name, std::string path){
 }
 
 bool AssetManager::loadSoundBuffer(std::string name, std::string path){
+	if(soundBuffers.count(name) != 0) return true;
 	sf::SoundBuffer* sb = new sf::SoundBuffer();
 	if(!sb->loadFromFile(path)){
 		return false;
@@ -26,15 +36,21 @@ bool AssetManager::loadSoundBuffer(std::string name, std::string path){
 }
 
 sf::Texture* AssetManager::getTexture(std::string name){
-	if(textures.count(name) != 0){
-		return textures[name];
+	if(paths.count(name) == 0) return NULL;
+	if(loadTexture(name, paths[name])){
+		if(textures.count(name) != 0){
+			return textures[name];
+		}
 	}
 	return NULL;
 }
 
 sf::SoundBuffer* AssetManager::getSoundBuffer(std::string name){
-	if(soundBuffers.count(name) != 0){
-		return soundBuffers[name];
+	if(paths.count(name) == 0) return NULL;
+	if(loadSoundBuffer(name, paths[name])){
+		if(soundBuffers.count(name) != 0){
+			return soundBuffers[name];
+		}
 	}
 	return NULL;
 }
