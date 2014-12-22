@@ -42,6 +42,9 @@ void ModuleHandler::initialize(AssetManager* am, ModuleType mt){
 }
 
 void ModuleHandler::update(float time){
+	//handle networking
+
+	//update everything
 	player->update(time, level);
 	for(CharacterEntity *e: characters){
 		e->update(time, level);

@@ -1,5 +1,6 @@
 #pragma once
 
+#define GRID_SIZE 64.0;
 #include <SFML\Graphics.hpp>
 
 class Level{

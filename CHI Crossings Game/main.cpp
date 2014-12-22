@@ -14,6 +14,7 @@ int main()
 	GraphicsManager graphicsManager = GraphicsManager(window);
 	//AudioManager audioManager = AudioManager();
 	ModuleHandler moduleHandler = ModuleHandler();
+	//NetworkManager networkManager = NetworkManager();
 
 	setupTimeLoop();
 

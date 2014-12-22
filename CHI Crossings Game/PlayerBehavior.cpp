@@ -42,8 +42,10 @@ void PlayerBehavior::update(CharacterEntity *character, float time, Level *level
 		}
 	}
 	
-	float newx = character->getX() + character->getXVel();
-	//check for x collision
-	float newy = character->getY() + character->getYVel();
-	//check for y collision
+	float newx = character->getX() + character->getXVel()*time;
+	float newy = character->getY() + character->getYVel()*time;
+	int gridx = character->getX()/GRID_SIZE;
+	int gridy = character->getY()/GRID_SIZE;
+
+	//check for collision
 }
