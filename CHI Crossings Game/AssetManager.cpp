@@ -15,20 +15,20 @@ void AssetManager::initialize(){
 	}
 }
 
-bool AssetManager::loadTexture(std::string name, std::string path){
+bool AssetManager::loadTexture(std::string name){
 	if(textures.count(name) != 0) return true;
 	sf::Texture* tex = new sf::Texture();
-	if(!tex->loadFromFile(path)){
+	if(!tex->loadFromFile(paths[name])){
 		return false;
 	}
 	textures[name] = tex;
 	return true;
 }
 
-bool AssetManager::loadSoundBuffer(std::string name, std::string path){
+bool AssetManager::loadSoundBuffer(std::string name){
 	if(soundBuffers.count(name) != 0) return true;
 	sf::SoundBuffer* sb = new sf::SoundBuffer();
-	if(!sb->loadFromFile(path)){
+	if(!sb->loadFromFile(paths[name])){
 		return false;
 	}
 	soundBuffers[name] = sb;
@@ -37,7 +37,7 @@ bool AssetManager::loadSoundBuffer(std::string name, std::string path){
 
 sf::Texture* AssetManager::getTexture(std::string name){
 	if(paths.count(name) == 0) return NULL;
-	if(loadTexture(name, paths[name])){
+	if(loadTexture(name)){
 		if(textures.count(name) != 0){
 			return textures[name];
 		}
@@ -47,7 +47,7 @@ sf::Texture* AssetManager::getTexture(std::string name){
 
 sf::SoundBuffer* AssetManager::getSoundBuffer(std::string name){
 	if(paths.count(name) == 0) return NULL;
-	if(loadSoundBuffer(name, paths[name])){
+	if(loadSoundBuffer(name)){
 		if(soundBuffers.count(name) != 0){
 			return soundBuffers[name];
 		}

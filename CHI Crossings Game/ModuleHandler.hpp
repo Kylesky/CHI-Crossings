@@ -29,7 +29,7 @@ public:
 
 	float getPlayerProgress();
 
-	void initialize(AssetManager* am, ModuleType mt = NONE);
+	void initialize(AssetManager* am, GraphicsManager* gm, ModuleType mt = NONE);
 	void update(float time);
 	void shutdown();
 	

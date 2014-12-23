@@ -20,7 +20,7 @@ float ModuleHandler::getPlayerProgress(){
 	return playerProgress;
 }
 
-void ModuleHandler::initialize(AssetManager* am, ModuleType mt){
+void ModuleHandler::initialize(AssetManager* am, GraphicsManager* gm, ModuleType mt){
 	if(mt != NONE) type = mt;
 	assetManager = am;
 	switch(mt){
@@ -30,13 +30,15 @@ void ModuleHandler::initialize(AssetManager* am, ModuleType mt){
 			map[i] = new int[200];
 			for(int j=0; j<200; j++){
 				map[i][j] = rand()%2;
+				if(map[i][j] == 1) map[i][j] |= (1<<8);
 			}
 		}
 		level = new Level(15, 200, map);
-		assetManager->loadTexture("Test Background");
-		level->setTexture(assetManager->getTexture("Test Background"));
+		level->setTexture((assetManager->getTexture("Test Background")));
+		gm->loadLevel(level);
 		player = new CharacterEntity();
 		player->setBehavior(new PlayerBehavior());
+		player->setTexture(*(assetManager->getTexture("Test Character")));
 		break;
 	}
 }

@@ -4,6 +4,7 @@ enum GAME_STATE {LAUNCHING, MAIN_MENU, OPTIONS_MENU, JOIN_GAME, PARTY_SCREEN, LO
 
 int main()
 {
+	srand(time(NULL));
 	GAME_STATE state = LOADING_TO_GAME;
 
 	//Initialize managers, window, entities, etc
@@ -31,7 +32,8 @@ int main()
 		//Process all user inputs and game logic
 		switch(state){
 		case LOADING_TO_GAME:
-			moduleHandler.initialize(&assetManager, CONTINUOUS_SIDE_SCROLLER);
+			assetManager.initialize();
+			moduleHandler.initialize(&assetManager, &graphicsManager, CONTINUOUS_SIDE_SCROLLER);
 			state = IN_GAME;
 			break;
 		case IN_GAME:
@@ -42,9 +44,11 @@ int main()
 		waitForFrameSync();
 
 		//Draw everything
+		graphicsManager.clearScreen();
 		switch(state){
 		case IN_GAME:
 			moduleHandler.drawScreen(&graphicsManager);
+			graphicsManager.update(secondsSinceLastLoop());
 			break;
 		}
     }
