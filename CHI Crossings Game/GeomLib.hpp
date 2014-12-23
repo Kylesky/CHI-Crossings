@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 double dist(double x, double y, double x2, double y2);
 double dist2(double x, double y, double x2, double y2);
 double ccw(double x, double y, double xa, double ya, double xb, double yb);

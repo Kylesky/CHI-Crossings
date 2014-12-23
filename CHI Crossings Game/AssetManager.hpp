@@ -18,8 +18,8 @@ public:
 
 	void initialize();
 
-	bool loadTexture(std::string name, std::string path);
-	bool loadSoundBuffer(std::string name, std::string path);
+	bool loadTexture(std::string name);
+	bool loadSoundBuffer(std::string name);
 
 	sf::Texture* getTexture(std::string name);
 	sf::SoundBuffer* getSoundBuffer(std::string name);

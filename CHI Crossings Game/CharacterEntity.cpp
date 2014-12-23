@@ -1,6 +1,16 @@
 #include "CharacterEntity.hpp"
+#include <iostream>
 
 CharacterEntity::CharacterEntity(){
+	stateDuration = 0;
+	onGround = true;
+	setX(128);
+	setY(160);
+	setXVel(0);
+	setYVel(0);
+	setWalkSpeed(100);
+	setJumpSpeed(500);
+	setOrigin(32, 32);
 }
 
 CharacterEntity::~CharacterEntity(){
