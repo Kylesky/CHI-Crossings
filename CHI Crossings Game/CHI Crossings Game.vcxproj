@@ -83,6 +83,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModuleHandler.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="ObjectEntity.cpp" />
     <ClCompile Include="PlayerBehavior.cpp" />
   </ItemGroup>
@@ -97,6 +98,7 @@
     <ClInclude Include="GraphicsManager.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="ModuleHandler.hpp" />
+    <ClInclude Include="NetworkManager.hpp" />
     <ClInclude Include="ObjectEntity.hpp" />
     <ClInclude Include="PlayerBehavior.hpp" />
   </ItemGroup>

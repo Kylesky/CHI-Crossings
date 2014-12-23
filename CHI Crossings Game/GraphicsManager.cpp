@@ -4,7 +4,7 @@ GraphicsManager::GraphicsManager(sf::RenderWindow* rw){
 	window = rw;
 	//add views later
 	mapView.setCenter(sf::Vector2f(0,0));
-	mapView.setSize(sf::Vector2f(200,200 ));
+	mapView.setSize(sf::Vector2f(200,200));
 	window->setView(mapView);
 }
 
