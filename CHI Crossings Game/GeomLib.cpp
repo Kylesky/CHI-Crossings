@@ -4,6 +4,7 @@
 #include <cmath>
 #include <algorithm>
 #include <vector>
+#include <iostream>
 
 double dist(double x, double y, double x2, double y2){
 	return sqrt(dist2(x, y, x2, y2));
@@ -24,10 +25,10 @@ double ccw(double x, double y, double xa, double ya, double xb, double yb){
 bool segmentIntersection(double* ans, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4){
 	double A1 = y2-y1;
 	double B1 = x1-x2;
-	double C1 = A1*x1+B1*y1;
+	double C1 = y2*x1-x2*y1;
 	double A2 = y4-y3;
 	double B2 = x3-x4;
-	double C2 = A1*x3+B1*y3;
+	double C2 = y4*x3-x4*y3;
 	double det = A1*B2 - A2*B1;
     if(abs(det) <= 1e-7){
 		return false;
@@ -107,4 +108,14 @@ bool isIntersecting_Circle_Rectangle(double x, double y, double r, double x2, do
 	|| isIntersecting_Circle_Segment(x, y, r, xc, yc, xd, yd)
 	|| isIntersecting_Circle_Segment(x, y, r, xd, yd, xa, ya)
 	|| pointInPolygon(x, y, 4, xs, ys);
+}
+
+double signum(double n){
+	if(n < -1e-7){
+		return -1.0;
+	}else if(n > 1e-7){
+		return 1.0;
+	}else{
+		return 0;
+	}
 }

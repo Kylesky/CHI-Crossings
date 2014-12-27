@@ -7,16 +7,17 @@ class GraphicsManager{
 private:
 	sf::RenderWindow* window;
 	sf::View mapView;
-	float worldX, worldY, worldX2, worldY2;
+	Level* level;
 public:
 	GraphicsManager(sf::RenderWindow* rw);
 	~GraphicsManager();
 
 	void drawEntity(Entity *e);
-	void drawLevel(Level* l);
+	void drawLevel();
 	void clearScreen();
 	void translate(float x, float y);
 	void zoom(float z);
 	void update(float z);
-	void loadLevel(Level* l);
+	void loadLevel();
+	void setLevel(Level* l);
 };

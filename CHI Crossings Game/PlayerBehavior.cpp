@@ -4,7 +4,6 @@
 void PlayerBehavior::update(CharacterEntity *character, float time, Level *level){
 	if(character->isOnGround()){
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-			character->setOnGround(false);
 			character->setYVel(-character->getJumpSpeed());
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 				character->setXVel(-character->getWalkSpeed());
@@ -44,63 +43,67 @@ void PlayerBehavior::update(CharacterEntity *character, float time, Level *level
 		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 			character->setXVel(character->getWalkSpeed());
 			character->setState(JUMP_RIGHT);
+		}else{
+			character->setXVel(0);
 		}
-		character->setYVel(character->getYVel()+20);
+		character->setYVel(character->getYVel()+5);
 	}
 	
+	character->setOnGround(false);
 	float newx = character->getX() + character->getXVel()*time;
 	float newy = character->getY() + character->getYVel()*time;
-	int gridx = character->getX()/GRID_SIZE;
-	int gridy = character->getY()/GRID_SIZE;
+	float tx = newx + signum(character->getXVel()) * character->getCollisionRadius();
+	float ty = newy + signum(character->getYVel()) * character->getCollisionRadius();
+	int gridx = (int)(character->getX()/GRID_SIZE);
+	int gridy = (int)(character->getY()/GRID_SIZE);
 
 	//check for collision
 	
 	//check immediate cells (8-direction)
 	//check with *level
 	//if not colliding, move
-	//if colliding stop at farthest possible non-colliding cell 
-
+	//if colliding stop at farthest possible non-colliding position
+	
+	bool movx = true;
+	bool movy = true;
 	for( int i = gridx-1; i <= gridx+1; ++i ){
 		for( int j = gridy-1; j <= gridy+1; ++j ){
-			int currgrid = level->getCell( i, j );
-			bool passable = currgrid & (1<<8);
+			int currgrid = level->getCell( j, i );
+			bool passable = (currgrid & (1<<8)) != 0;
 			if(!passable){
 				double ans[2];
-				float ang = atan2(character->getYVel()*time, character->getXVel()*time);
-				
-				double tx = character->getX() - cos(ang)*CHARRAD;
-				double ty = character->getY() - sin(ang)*CHARRAD;
-				double tx2 = newx + cos(ang)*CHARRAD;
-				double ty2 = newy + sin(ang)*CHARRAD;
-				if(i == gridx+1 && j == gridy){
-					std::cout << tx << " " << ty << " " << tx2 << " " << ty2 << std::endl;
-					std::cout << i*64 << " " << j*64 << " " << i*64 << " " << j*64+64 << std::endl;
-				}
-				//left
-				if( segmentIntersection(ans, tx, ty, tx2, ty2, i*64, j*64, i*64, j*64+64)){
-					newx = ans[0] - cos(ang)*CHARRAD;
-					newy = ans[1] - sin(ang)*CHARRAD;
-					std::cout << "fahjsdlkhfakjdshflkajsdhfjklasdhfkaljsdhflakjsdhflkajsdhklwah" << std::endl;
-				}
-				//right
-				if( segmentIntersection(ans, tx, ty, tx2, ty2, i*64+64, j*64, i*64+64, j*64+64)){
-					newx = ans[0] - cos(ang)*CHARRAD;
-					newy = ans[1] - sin(ang)*CHARRAD;
-				}
+
 				//top
-				if( segmentIntersection(ans, tx, ty, tx2, ty2, i*64, j*64, i*64+64, j*64)){
-					newx = ans[0] - cos(ang)*CHARRAD;
-					newy = ans[1] - sin(ang)*CHARRAD;
+				if( segmentIntersection(ans, character->getX()+character->getWidth()-DBL_EPSILON, character->getY(), character->getX()+character->getWidth()-DBL_EPSILON, ty, i*64+DBL_EPSILON, j*64+DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+DBL_EPSILON) ||
+					segmentIntersection(ans, character->getX()-character->getWidth()+DBL_EPSILON, character->getY(), character->getX()-character->getWidth()+DBL_EPSILON, ty, i*64+DBL_EPSILON, j*64+DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+DBL_EPSILON)){
+					movy = false;
+					character->setOnGround(true);
+					character->setYVel(0);
+					//std::cout << "top " << i << " " << j << std::endl;
 				}
 				//bottom
-				if( segmentIntersection(ans, tx, ty, tx2, ty2, i*64, j*64+64, i*64+64, j*64+64)){
-					newx = ans[0] - cos(ang)*CHARRAD;
-					newy = ans[1] - sin(ang)*CHARRAD;
+				if( segmentIntersection(ans, character->getX()+character->getWidth()-DBL_EPSILON, character->getY(), character->getX()+character->getWidth()-DBL_EPSILON, ty, i*64+DBL_EPSILON, j*64+64-DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+64-DBL_EPSILON) ||
+					segmentIntersection(ans, character->getX()-character->getWidth()+DBL_EPSILON, character->getY(), character->getX()-character->getWidth()+DBL_EPSILON, ty, i*64+DBL_EPSILON, j*64+64-DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+64-DBL_EPSILON)){
+					movy = false;
+					character->setYVel(0);
+					//std::cout << "bottom " << i << " " << j << std::endl;
+				}
+				//left
+				if( segmentIntersection(ans, character->getX(), character->getY()+character->getHeight()-DBL_EPSILON, tx, character->getY()+character->getHeight()-DBL_EPSILON, i*64+DBL_EPSILON, j*64+DBL_EPSILON, i*64+DBL_EPSILON, j*64+64-DBL_EPSILON) ||
+					segmentIntersection(ans, character->getX(), character->getY()-character->getHeight()+DBL_EPSILON, tx, character->getY()-character->getHeight()+DBL_EPSILON, i*64+DBL_EPSILON, j*64+DBL_EPSILON, i*64+DBL_EPSILON, j*64+64-DBL_EPSILON)){
+					movx = false;
+					//std::cout << "left " << i << " " << j << std::endl;
+				}
+				//right
+				if( segmentIntersection(ans, character->getX(), character->getY()+character->getHeight()-DBL_EPSILON, tx, character->getY()+character->getHeight()-DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+64-DBL_EPSILON) ||
+					segmentIntersection(ans, character->getX(), character->getY()-character->getHeight()+DBL_EPSILON, tx, character->getY()-character->getHeight()+DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+DBL_EPSILON, i*64+64-DBL_EPSILON, j*64+64-DBL_EPSILON)){
+					movx = false;
+					//std::cout << "right " << i << " " << j << std::endl;
 				}
 			}
 		}
 	}
 
-	character->setX(newx);
-	character->setY(newy);
+	if(movx) character->setX(newx);
+	if(movy) character->setY(newy);
 }

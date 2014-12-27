@@ -13,3 +13,4 @@ bool isIntersecting_Circle_Circle(double x, double y, double r, double x2, doubl
 bool isIntersecting_Circle_Line(double x, double y, double r, double xa, double ya, double xb, double yb);
 bool isIntersecting_Circle_Segment(double x, double y, double r, double xa, double ya, double xb, double yb);
 bool isIntersecting_Circle_Rectangle(double x, double y, double r, double x2, double y2, double l, double w, double t);
+double signum(double n);

@@ -8,11 +8,7 @@ GraphicsManager::GraphicsManager(sf::RenderWindow* rw){
 	//add views later
 	//mapView.setCenter(sf::Vector2f(0,0));
 	//mapView.setSize(sf::Vector2f(200,200 ));
-	window->setView(mapView);
-	worldX = 0;
-	worldY = 0;
-	worldX2 = 0;
-	worldY2 = 0;
+	//window->setView(mapView);
 }
 
 GraphicsManager::~GraphicsManager(){
@@ -21,20 +17,27 @@ GraphicsManager::~GraphicsManager(){
 void GraphicsManager::drawEntity(Entity *e){
 	int temp = (int)(((CharacterEntity*)e)->getStateTime()*1);
 	e->setTextureRect(sf::IntRect(temp*64, temp*64, 64, 64));
-	//std::cout << temp << std::endl;
-	//std::cout << ((CharacterEntity*)e)->getStateTime() << std::endl;
+	e->setScale(0.75, 0.75);
+	sf::View v = window->getDefaultView();
+	v.setCenter((int)(level->getWorldX()), (int)(level->getWorldY()));
+	window->setView(v);
 	window->draw(*e);
+	window->setView(window->getDefaultView());
 }
 
-void GraphicsManager::drawLevel(Level *l){
+void GraphicsManager::drawLevel(){
 	//draw
-	window->draw(*(l->getVtxArray()), l->getTexture());
+	sf::View v = window->getDefaultView();
+	v.setCenter((int)(level->getWorldX()), (int)(level->getWorldY()));
+	window->setView(v);
+	window->draw(*(level->getVtxArray()), level->getTexture());
+	window->setView(window->getDefaultView());
 }
 
-void GraphicsManager::loadLevel(Level *l){
+void GraphicsManager::loadLevel(){
 	//pre-load xy values to map to textures
-	const int cols = l->getCols(); //columns
-	const int rows = l->getRows(); //rows
+	const int cols = level->getCols(); //columns
+	const int rows = level->getRows(); //rows
 
 	//use sf::Quads
 	sf::VertexArray* vertices = new sf::VertexArray( sf::Quads, cols*rows*4 );
@@ -47,8 +50,8 @@ void GraphicsManager::loadLevel(Level *l){
 			(*vertices)[i*cols*4 + j*4+3].position = sf::Vector2f( j*GRID_SIZE-1, i*GRID_SIZE + GRID_SIZE+1 );
 
 			//UV
-			int x = (l->getCell(i, j)) & 15;
-			int y = ((l->getCell(i, j)) & (15<<4) ) >> 4;
+			int x = (level->getCell(i, j)) & 15;
+			int y = ((level->getCell(i, j)) & (15<<4) ) >> 4;
 			(*vertices)[i*cols*4 + j*4].texCoords = sf::Vector2f( x*GRID_SIZE, y*GRID_SIZE );
 			(*vertices)[i*cols*4 + j*4+1].texCoords = sf::Vector2f( x*GRID_SIZE + GRID_SIZE, y*GRID_SIZE );
 			(*vertices)[i*cols*4 + j*4+2].texCoords = sf::Vector2f( x*GRID_SIZE + GRID_SIZE, y*GRID_SIZE + GRID_SIZE );
@@ -56,7 +59,7 @@ void GraphicsManager::loadLevel(Level *l){
 
 		}
 	}
-	l->setVtxArray( vertices );
+	level->setVtxArray( vertices );
 }
 
 void GraphicsManager::clearScreen(){
@@ -72,9 +75,9 @@ void GraphicsManager::zoom(float z){
 }
 
 void GraphicsManager::update(float z){
-	//worldX2 += z*99;
-	mapView.move((int)(worldX2-worldX), (int)(worldY2-worldY));
-	worldX = (int)worldX2;
-	window->setView(mapView);
 	window->display();
+}
+
+void GraphicsManager::setLevel(Level* l){
+	level = l;
 }

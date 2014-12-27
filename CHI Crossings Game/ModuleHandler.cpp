@@ -25,17 +25,19 @@ void ModuleHandler::initialize(AssetManager* am, GraphicsManager* gm, ModuleType
 	assetManager = am;
 	switch(mt){
 	case CONTINUOUS_SIDE_SCROLLER:
-		int **map = new int*[15];
-		for(int i=0; i<15; i++){
+		int **map = new int*[10];
+		for(int i=0; i<10; i++){
 			map[i] = new int[200];
 			for(int j=0; j<200; j++){
-				map[i][j] = rand()%2;
+				if(i == 0 || i == 9 || j == 0 || j == 199) map[i][j] = 0;
+				else map[i][j] = (rand()%10 != 0);
 				if(map[i][j] == 1) map[i][j] |= (1<<8);
 			}
 		}
-		level = new Level(15, 200, map);
+		level = new Level(10, 200, map);
 		level->setTexture((assetManager->getTexture("Test Background")));
-		gm->loadLevel(level);
+		gm->setLevel(level);
+		gm->loadLevel();
 		player = new CharacterEntity();
 		player->setBehavior(new PlayerBehavior());
 		player->setTexture(*(assetManager->getTexture("Test Character")));
@@ -47,6 +49,7 @@ void ModuleHandler::update(float time){
 	//handle networking
 
 	//update everything
+	level->moveWorld(0.3, 0);
 	player->update(time, level);
 	for(CharacterEntity *e: characters){
 		e->update(time, level);
@@ -68,7 +71,7 @@ void ModuleHandler::shutdown(){
 }
 
 void ModuleHandler::drawScreen(GraphicsManager *gm){
-	gm->drawLevel(level);
+	gm->drawLevel();
 	for(CharacterEntity *e: characters){
 		gm->drawEntity(e);
 	}

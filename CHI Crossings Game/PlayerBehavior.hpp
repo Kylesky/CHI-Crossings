@@ -1,6 +1,5 @@
 #pragma once
 
-#define CHARRAD 32
 #include "CharacterBehavior.hpp"
 #include "GeomLib.hpp"
 #include <SFML/Window.hpp>

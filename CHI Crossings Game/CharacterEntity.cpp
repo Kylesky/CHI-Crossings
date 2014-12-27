@@ -3,14 +3,17 @@
 
 CharacterEntity::CharacterEntity(){
 	stateDuration = 0;
-	onGround = true;
-	setX(128);
+	onGround = false;
+	setX(160);
 	setY(160);
 	setXVel(0);
 	setYVel(0);
-	setWalkSpeed(100);
-	setJumpSpeed(500);
+	setWalkSpeed(300);
+	setJumpSpeed(700);
 	setOrigin(32, 32);
+	setHeight(24);
+	setWidth(24);
+	setCollisionRadius(24);
 }
 
 CharacterEntity::~CharacterEntity(){
@@ -80,6 +83,18 @@ void CharacterEntity::setJumpSpeed(float s){
 	jumpSpeed = s;
 }
 
+void CharacterEntity::setHeight(float h){
+	height = h;
+}
+
+void CharacterEntity::setWidth(float w){
+	width = w;
+}
+
+void CharacterEntity::setCollisionRadius(float r){
+	collisionRadius = r;
+}
+
 float CharacterEntity::getX(){
 	return getPosition().x;
 }
@@ -102,6 +117,18 @@ float CharacterEntity::getWalkSpeed(){
 
 float CharacterEntity::getJumpSpeed(){
 	return jumpSpeed;
+}
+
+float CharacterEntity::getHeight(){
+	return height;
+}
+
+float CharacterEntity::getWidth(){
+	return width;
+}
+
+float CharacterEntity::getCollisionRadius(){
+	return collisionRadius;
 }
 
 void CharacterEntity::setBehavior(CharacterBehavior *cb){

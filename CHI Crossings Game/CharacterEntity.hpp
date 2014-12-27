@@ -10,6 +10,8 @@ private:
 	float health;
 	float xvel, yvel;
 	float walkSpeed, jumpSpeed;
+	float height, width;
+	float collisionRadius;
 	CharacterBehavior *behavior;
 	CharacterEntityState state;
 	float stateDuration;
@@ -34,12 +36,18 @@ public:
 	void setXYVel(float xv, float yv);
 	void setWalkSpeed(float s);
 	void setJumpSpeed(float s);
+	void setHeight(float h);
+	void setWidth(float w);
+	void setCollisionRadius(float r);
 	float getX();
 	float getY();
 	float getXVel();
 	float getYVel();
 	float getWalkSpeed();
 	float getJumpSpeed();
+	float getHeight();
+	float getWidth();
+	float getCollisionRadius();
 
 	void setBehavior(CharacterBehavior *cb);
 

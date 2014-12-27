@@ -5,6 +5,7 @@ Level::Level(){
 
 Level::Level(int r, int c, int **arr){
 	setMap(r, c, arr);
+	setWorldXY(448, r*GRID_SIZE/2);
 }
 
 Level::~Level(){
@@ -20,12 +21,26 @@ void Level::setCell(int r, int c, int cell){
 	map[r][c] = cell;
 }
 
+void Level::setWorldXY(float x, float y){
+	worldX = x;
+	worldY = y;
+}
+
+void Level::moveWorld(float dx, float dy){
+	worldX += dx;
+	worldY += dy;
+}
+
 int Level::getCell(int r, int c){
 	return map[r][c];
 }
 
-int* Level::operator[](int x){
-	return map[x];
+float Level::getWorldX(){
+	return worldX;
+}
+
+float Level::getWorldY(){
+	return worldY;
 }
 
 void Level::shutdown(){
