@@ -10,12 +10,18 @@ int main()
 	//Initialize managers, window, entities, etc
 
 	sf::RenderWindow* window = setupWindow();
-
+	
+	/*
 	AssetManager assetManager = AssetManager();
-	GraphicsManager graphicsManager = GraphicsManager(window);
+	GraphicsManager graphicsManager = GraphicsManager();
 	//AudioManager audioManager = AudioManager();
 	ModuleHandler moduleHandler = ModuleHandler();
 	//NetworkManager networkManager = NetworkManager();
+	*/
+
+	GraphicsManager::initialize(window);
+	AssetManager::initialize();
+	InputHandler::initialize();
 
 	setupTimeLoop();
 
@@ -30,32 +36,34 @@ int main()
         }
 		
 		//Process all user inputs and game logic
+		InputHandler::update();
+
 		switch(state){
 		case LOADING_TO_GAME:
-			assetManager.initialize();
-			moduleHandler.initialize(&assetManager, &graphicsManager, CONTINUOUS_SIDE_SCROLLER);
+			ModuleHandler::initialize(CONTINUOUS_SIDE_SCROLLER);
 			state = IN_GAME;
 			break;
 		case IN_GAME:
-			moduleHandler.update(secondsSinceLastLoop());
+			ModuleHandler::update(secondsSinceLastLoop());
 			break;
 		}
 
 		waitForFrameSync();
 
 		//Draw everything
-		graphicsManager.clearScreen();
+		GraphicsManager::clearScreen();
 		switch(state){
 		case IN_GAME:
-			moduleHandler.drawScreen(&graphicsManager);
-			graphicsManager.update(secondsSinceLastLoop());
+			ModuleHandler::drawScreen();
+			GraphicsManager::update(secondsSinceLastLoop());
 			break;
 		}
     }
 
 	//shutdown everything
-	assetManager.shutdown();
-	moduleHandler.shutdown();
+	AssetManager::shutdown();
+	ModuleHandler::shutdown();
+	InputHandler::shutdown();
 
     return 0;
 }

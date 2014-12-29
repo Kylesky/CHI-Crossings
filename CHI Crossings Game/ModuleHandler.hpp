@@ -11,27 +11,29 @@ enum ModuleType{NONE, CONTINUOUS_SIDE_SCROLLER};
 
 class ModuleHandler{
 private:
-	float playerProgress;
-	ModuleType type;
-	Level *level;
-	CharacterEntity *player;
-	std::vector<CharacterEntity*> characters;
-	std::vector<BulletEntity*> bullets;
-	std::vector<ObjectEntity*> objects;
-	AssetManager* assetManager;
+	static float playerProgress;
+	static ModuleType type;
+	static Level *level;
+	static CharacterEntity *player;
+	static std::vector<CharacterEntity*> characters;
+	static std::vector<BulletEntity*> bullets;
+	static std::vector<ObjectEntity*> objects;
 
 public:
 	ModuleHandler();
 	~ModuleHandler();
 
-	void setModuleType(ModuleType mt);
-	ModuleType getModuleType();
+	static void setModuleType(ModuleType mt);
+	static ModuleType getModuleType();
 
-	float getPlayerProgress();
+	static float getPlayerProgress();
 
-	void initialize(AssetManager* am, GraphicsManager* gm, ModuleType mt = NONE);
-	void update(float time);
-	void shutdown();
+	static void initialize(ModuleType mt = NONE);
+	static void update(float time);
+	static void shutdown();
 	
-	void drawScreen(GraphicsManager *gm);
+	static void drawScreen();
+
+	static void initializeContinuousSideScroller();
 };
+

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Behaviors">
+      <UniqueIdentifier>{2098f323-3b1c-4bb4-94d0-4d3688138582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Behaviors">
+      <UniqueIdentifier>{d11263f3-307d-44e0-a32b-5b65023aa522}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,9 +48,6 @@
     <ClCompile Include="ObjectEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBehavior.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,6 +56,15 @@
     </ClCompile>
     <ClCompile Include="CharacterBehavior.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBehavior.cpp">
+      <Filter>Source Files\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="SnakeBehavior.cpp">
+      <Filter>Source Files\Behaviors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,18 +95,27 @@
     <ClInclude Include="CharacterBehavior.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBehavior.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GeomLib.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBehavior.hpp">
+      <Filter>Header Files\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="SnakeBehavior.hpp">
+      <Filter>Header Files\Behaviors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="keymap.dat">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

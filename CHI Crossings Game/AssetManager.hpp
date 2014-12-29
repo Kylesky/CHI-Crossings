@@ -9,23 +9,24 @@
 
 class AssetManager{
 private:
-	std::map<std::string, sf::Texture*> textures;
-	std::map<std::string, sf::SoundBuffer*> soundBuffers;
-	std::map<std::string, std::string> paths;
+	static std::map<std::string, sf::Texture*> textures;
+	static std::map<std::string, sf::SoundBuffer*> soundBuffers;
+	static std::map<std::string, std::string> paths;
+
 public:
 	AssetManager();
 	~AssetManager();
 
-	void initialize();
+	static void initialize();
 
-	bool loadTexture(std::string name);
-	bool loadSoundBuffer(std::string name);
+	static bool loadTexture(std::string name);
+	static bool loadSoundBuffer(std::string name);
 
-	sf::Texture* getTexture(std::string name);
-	sf::SoundBuffer* getSoundBuffer(std::string name);
+	static sf::Texture* getTexture(std::string name);
+	static sf::SoundBuffer* getSoundBuffer(std::string name);
 
-	bool unloadTexture(std::string name);
-	bool unloadSoundBuffer(std::string name);
+	static bool unloadTexture(std::string name);
+	static bool unloadSoundBuffer(std::string name);
 
-	void shutdown();
+	static void shutdown();
 };

@@ -5,19 +5,25 @@
 
 class GraphicsManager{
 private:
-	sf::RenderWindow* window;
-	sf::View mapView;
-	Level* level;
+	static sf::RenderWindow* window;
+	//sf::View mapView;
+	static Level* level;
+
 public:
-	GraphicsManager(sf::RenderWindow* rw);
+	GraphicsManager();
 	~GraphicsManager();
 
-	void drawEntity(Entity *e);
-	void drawLevel();
-	void clearScreen();
-	void translate(float x, float y);
-	void zoom(float z);
-	void update(float z);
-	void loadLevel();
-	void setLevel(Level* l);
+	static void initialize(sf::RenderWindow* rw);
+	
+	static void drawCharacterEntity(CharacterEntity *e);
+	static void drawBulletEntity(BulletEntity *e);
+	static void drawObjectEntity(ObjectEntity *e);
+	static void drawLevel();
+	static void clearScreen();
+	static void translate(float x, float y);
+	static void zoom(float z);
+	static void update(float z);
+	static void loadLevel();
+	static void setQuad(sf::VertexArray* vertices, int quad, int x, int y, int u, int v);
+	static void setLevel(Level* l);
 };

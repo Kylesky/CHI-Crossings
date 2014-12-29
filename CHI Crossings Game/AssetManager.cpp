@@ -1,5 +1,9 @@
 #include "AssetManager.hpp"
 
+std::map<std::string, sf::Texture*> AssetManager::textures;
+std::map<std::string, sf::SoundBuffer*> AssetManager::soundBuffers;
+std::map<std::string, std::string> AssetManager::paths;
+
 AssetManager::AssetManager(){
 }
 

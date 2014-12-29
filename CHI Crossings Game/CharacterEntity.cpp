@@ -2,18 +2,21 @@
 #include <iostream>
 
 CharacterEntity::CharacterEntity(){
+}
+
+CharacterEntity::CharacterEntity(float x, float y, float xv, float yv, float ws, float js, float h, float w, float r){
+	setX(x); setY(y);
+	setXVel(xv); setYVel(yv);
+	setWalkSpeed(ws); setJumpSpeed(js);
+	setHeight(h); setWidth(w);
+	setCollisionRadius(r);
+
+	setOrigin(32, 32);	
+	onGround = onSlower = jumping = false;
+	
 	stateDuration = 0;
-	onGround = false;
-	setX(160);
-	setY(160);
-	setXVel(0);
-	setYVel(0);
-	setWalkSpeed(300);
-	setJumpSpeed(700);
-	setOrigin(32, 32);
-	setHeight(24);
-	setWidth(24);
-	setCollisionRadius(24);
+	setState(IDLE_RIGHT);
+	behavior = NULL;
 }
 
 CharacterEntity::~CharacterEntity(){
@@ -27,7 +30,10 @@ void CharacterEntity::update(float time, Level *level){
 }
 
 void CharacterEntity::setState(CharacterEntityState s){
-	state = s;
+	if(state != s){
+		stateDuration = 0;
+		state = s;
+	}
 }
 
 CharacterEntityState CharacterEntity::getState(){
@@ -40,6 +46,22 @@ void CharacterEntity::setOnGround(bool b){
 
 bool CharacterEntity::isOnGround(){
 	return onGround;
+}
+
+void CharacterEntity::setOnSlower(bool b){
+	onSlower = b;
+}
+
+bool CharacterEntity::isOnSlower(){
+	return onSlower;
+}
+
+void CharacterEntity::setJumping(bool b){
+	jumping = b;
+}
+
+bool CharacterEntity::isJumping(){
+	return jumping;
 }
 
 void CharacterEntity::addStateTime(float t){

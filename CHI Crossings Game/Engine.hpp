@@ -9,6 +9,7 @@
 #include "ModuleHandler.hpp"
 #include "AssetManager.hpp"
 #include "GraphicsManager.hpp"
+#include "InputHandler.hpp"
 
 void setupTimeLoop();
 void waitForFrameSync();

@@ -5,7 +5,6 @@
 
 class Entity : public sf::Sprite{
 private:
-	float stateDuration;
 public:
 	Entity();
 	~Entity();

@@ -12,5 +12,5 @@ bool pointInPolygon(double x, double y, int v, std::vector<double> xs, std::vect
 bool isIntersecting_Circle_Circle(double x, double y, double r, double x2, double y2, double r2);
 bool isIntersecting_Circle_Line(double x, double y, double r, double xa, double ya, double xb, double yb);
 bool isIntersecting_Circle_Segment(double x, double y, double r, double xa, double ya, double xb, double yb);
-bool isIntersecting_Circle_Rectangle(double x, double y, double r, double x2, double y2, double l, double w, double t);
+bool isIntersecting_Circle_Rectangle(double x, double y, double r, double x2, double y2, double w, double h, double t);
 double signum(double n);

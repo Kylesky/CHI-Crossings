@@ -15,9 +15,10 @@ private:
 	CharacterBehavior *behavior;
 	CharacterEntityState state;
 	float stateDuration;
-	bool onGround;
+	bool onGround, onSlower, jumping;
 public:
 	CharacterEntity();
+	CharacterEntity(float x, float y, float xv, float yv, float ws, float js, float h, float w, float r);
 	~CharacterEntity();
 
 	void setState(CharacterEntityState s);
@@ -28,6 +29,10 @@ public:
 
 	void setOnGround(bool b);
 	bool isOnGround();
+	void setOnSlower(bool b);
+	bool isOnSlower();
+	void setJumping(bool b);
+	bool isJumping();
 	void setX(float x);
 	void setY(float y);
 	void setXY(float x, float y);

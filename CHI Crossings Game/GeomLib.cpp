@@ -59,7 +59,7 @@ bool pointInPolygon(double x, double y, int v, std::vector<double> xs, std::vect
 	bool less = true;
 	bool great = true;
 
-	for(int i=0; i<v && less && great; i++){
+	for(int i=0; i<v && (less || great); i++){
 		double t = ccw(xs[i], ys[i], xs[(i+1)%v], ys[(i+1)%v], x, y);
 		less &= t<0;
 		great &= t>0;
@@ -79,30 +79,32 @@ bool isIntersecting_Circle_Line(double x, double y, double r, double xa, double 
 	
 bool isIntersecting_Circle_Segment(double x, double y, double r, double xa, double ya, double xb, double yb){
 	double d = dist(xa, ya, xb, yb);
-	double proj = abs(xa*x + ya*y)/d;
+	double proj = abs((xb-xa)*(x-xa) + (yb-ya)*(y-ya))/d;
 	double intx = xa+proj*(xb-xa)/d;
 	double inty = ya+proj*(yb-ya)/d;
-	if( std::min(xa, xb) <= intx && intx <= std::max(xa, xb) ){
-		return proj <= r;
+	if( std::min(xa, xb) <= intx && intx <= std::max(xa, xb) && std::min(ya, yb) <= inty && inty <= std::max(ya, yb) ){
+		return dist(x, y, intx, inty) <= r;
 	}else{
 		return (dist(x, y, xa, ya) <= r) || (dist(x, y, xb, yb) <= r);
 	}
 }
 
-bool isIntersecting_Circle_Rectangle(double x, double y, double r, double x2, double y2, double l, double w, double t){
+bool isIntersecting_Circle_Rectangle(double x, double y, double r, double x2, double y2, double w, double h, double t){
 	t = t*PI/180;
-	double ang = atan(w/l);
-	double d = sqrt(l*l/4+w*w/4);
-	double xa = x2+d*cos(ang+t);
-	double ya = y2+d*sin(ang+t);
-	double xb = x2+d*cos(ang-t);
-	double yb = y2+d*sin(ang-t);
-	double xc = x2-d*cos(ang+t);
-	double yc = y2-d*sin(ang+t);
-	double xd = x2-d*cos(ang-t);
-	double yd = y2-d*sin(ang-t);
+	double ang = atan(h/w);
+	double d = sqrt(h*h/4+w*w/4);
+	double xa = x2+d*cos(t+ang);
+	double ya = y2+d*sin(t+ang);
+	double xb = x2+d*cos(t-ang);
+	double yb = y2+d*sin(t-ang);
+	double xc = x2-d*cos(t+ang);
+	double yc = y2-d*sin(t+ang);
+	double xd = x2-d*cos(t-ang);
+	double yd = y2-d*sin(t-ang);
+
 	std::vector<double> xs; xs.push_back(xa); xs.push_back(xb); xs.push_back(xc); xs.push_back(xd);
 	std::vector<double> ys; ys.push_back(ya); ys.push_back(yb); ys.push_back(yc); ys.push_back(yd);
+
 	return isIntersecting_Circle_Segment(x, y, r, xa, ya, xb, yb)
 	|| isIntersecting_Circle_Segment(x, y, r, xb, yb, xc, yc)
 	|| isIntersecting_Circle_Segment(x, y, r, xc, yc, xd, yd)

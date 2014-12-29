@@ -13,3 +13,4 @@ public:
 
 #include "CharacterEntity.hpp"
 #include "PlayerBehavior.hpp"
+#include "SnakeBehavior.hpp"

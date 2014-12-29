@@ -2,6 +2,14 @@
 
 #include <cstdlib>
 
+float ModuleHandler::playerProgress = 0;
+ModuleType ModuleHandler::type = NONE;
+Level* ModuleHandler::level = NULL;
+CharacterEntity* ModuleHandler::player = NULL;
+std::vector<CharacterEntity*> ModuleHandler::characters;
+std::vector<BulletEntity*> ModuleHandler::bullets;
+std::vector<ObjectEntity*> ModuleHandler::objects;
+
 ModuleHandler::ModuleHandler(){
 }
 
@@ -20,36 +28,26 @@ float ModuleHandler::getPlayerProgress(){
 	return playerProgress;
 }
 
-void ModuleHandler::initialize(AssetManager* am, GraphicsManager* gm, ModuleType mt){
+void ModuleHandler::initialize(ModuleType mt){
 	if(mt != NONE) type = mt;
-	assetManager = am;
 	switch(mt){
 	case CONTINUOUS_SIDE_SCROLLER:
-		int **map = new int*[10];
-		for(int i=0; i<10; i++){
-			map[i] = new int[200];
-			for(int j=0; j<200; j++){
-				if(i == 0 || i == 9 || j == 0 || j == 199) map[i][j] = 0;
-				else map[i][j] = (rand()%10 != 0);
-				if(map[i][j] == 1) map[i][j] |= (1<<8);
-			}
-		}
-		level = new Level(10, 200, map);
-		level->setTexture((assetManager->getTexture("Test Background")));
-		gm->setLevel(level);
-		gm->loadLevel();
-		player = new CharacterEntity();
-		player->setBehavior(new PlayerBehavior());
-		player->setTexture(*(assetManager->getTexture("Test Character")));
+		initializeContinuousSideScroller();
 		break;
 	}
+	GraphicsManager::setLevel(level);
+	GraphicsManager::loadLevel();
+	player = new CharacterEntity(592, 272, 0, 0, 300, 700, 24, 24, 24);
+	player->setBehavior(new PlayerBehavior());
+	player->setTexture(*(AssetManager::getTexture("Test Character")));
+	player->setScale(0.75, 0.75);
 }
 
 void ModuleHandler::update(float time){
 	//handle networking
 
 	//update everything
-	level->moveWorld(0.3, 0);
+	level->moveWorld(0.3f, 0);
 	player->update(time, level);
 	for(CharacterEntity *e: characters){
 		e->update(time, level);
@@ -66,20 +64,37 @@ void ModuleHandler::shutdown(){
 	//delete all entities
 	level->shutdown();
 	delete level;
-	assetManager->unloadTexture("Test Background");
+	AssetManager::unloadTexture("Test Background");
 	delete player;
 }
 
-void ModuleHandler::drawScreen(GraphicsManager *gm){
-	gm->drawLevel();
+void ModuleHandler::drawScreen(){
+	GraphicsManager::drawLevel();
 	for(CharacterEntity *e: characters){
-		gm->drawEntity(e);
+		GraphicsManager::drawCharacterEntity(e);
 	}
 	for(BulletEntity *e: bullets){
-		gm->drawEntity(e);
+		GraphicsManager::drawBulletEntity(e);
 	}
 	for(ObjectEntity *e: objects){
-		gm->drawEntity(e);
+		GraphicsManager::drawObjectEntity(e);
 	}
-	gm->drawEntity(player);
+	GraphicsManager::drawCharacterEntity(player);
+}
+
+void ModuleHandler::initializeContinuousSideScroller(){
+	level = new Level(10, 200);
+	level->setTexture((AssetManager::getTexture("Test Textures")));
+
+	for(int i=0; i<10; i++){
+		for(int j=0; j<200; j++){
+			if(i == 0 || i == 9 || j == 0 || j == 199){
+				level->setCellUV(i, j, 0, 1);
+			}else{
+				level->setCellPassable(i, j, true);
+				level->setCellUV(i, j, 0, 0);
+			}
+		}
+	}
+
 }
